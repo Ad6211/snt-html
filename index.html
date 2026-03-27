@@ -7,8 +7,33 @@
     <link rel="icon" type="image/x-icon" href="./icon.webp">
     <link rel="stylesheet" href="https://unpkg.com/leaftlet/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/leaftlet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaftlet-routing-machine/dist/leaflet-routing-machine.js"></script>
 </head>
 <body>
-    
+    <h1 id="title">sortie au cinéma</h1>
+    <div class="container">
+        <div style="background-color: white; font-size:30px;">
+            <p>Dans le cadre du programme de SVT, sur la notion du développement durable, une semaine de cinéma est programmée le Dreudi 32 février, au cinéma UGC de Lille centre à 9h00 et 12h00.</p>
+            <a href="./synopsis.html">Lien vers le synopsis</a>
+        </div>
+        <img src="./affiche.jpg" alt="affiche" width="400px", border="10px">
+    </div>
+    <div style="background-color: white; color: black; padding:20px">
+        <hr>
+        <form id="cinemaForm">
+            <p>entrez votre nom : <input type="text" name="nom" required></p>
+            <p>entrez votre prénom : <input type="text" name="prenom" required></p>
+            <p>Entrez votre classe : <input type="text" name="classe" required></p>
+            <p>viendra à la séance : oui <input type="radio" name="ouinon" value="oui" required> non <input type="radio" name="ouinon" value="non" required></p>
+            <p><input type="checkbox" name="payement">A versé la somme de 645€ à l'ordre de m. Leroux</p>
+            <button type="submit">Envoyer</button>
+        </form>
+        <hr>
+        <h2>Ma position GPS</h2>
+        <div id="map"></div>
+        <hr>
+        <p style="font-size:9px"><a href="https://docs.google.com/spreadsheets/d/1ALA0C4wENjRJ6niPbQSizgeUugQw8IMmw83XgK12QEA/edit?usp=sharing" target="_blank">Lien vers le tableau Google Sheets (pour les admins)</a></p>
+    </div>
 </body>
 </html>
