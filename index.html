@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sortie au cinéma</title>
     <link rel="icon" type="image/x-icon" href="./icon.webp">
-    <link rel="stylesheet" href="https://unpkg.com/leaftlet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/leaftlet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaftlet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 </head>
 <body>
     <h1 id="title">sortie au cinéma</h1>
@@ -39,7 +39,7 @@
     <script>
         emailjs.init("QS93A9o9xo0_E6UJP");
         document.getElementById("cinemaForm").addEventListener('submit',function(e){
-            e.presentDefault();
+            e.preventDefault();
 
             const form = this;
             
@@ -59,3 +59,71 @@
                 method: "POST",
                 mode: "no-cors",
                 headers: {
+                "Content-Type":"application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res=>res.text());
+            //3 Attendre les deux 
+            Promise.all([emailPromise, sheetPromise])
+            .then(()=>{
+                alert("inscription envoyée + enregistrée !");
+                window.location.href = "confirmation.html";
+            })
+            .catch((error) => {
+            console.error(error);
+            alert("Erreur lors de l'envoi");
+            window.location.href = "error.html";
+            });
+            });
+            </script>
+
+            <script>
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function(position){
+                    let lat = position.coords.latitude;
+                    let lon = position.coords.longitude; 
+                    
+                    //coordonnées exemple cinéma (UGC Lille)
+                    let cinemaLat = 50.6369;
+                    let cinemaLon = 3.0633;
+
+                    let map = L.map('map').setView([lat,lon],13);
+                    
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                        attribution:'© OpenStreetMap'
+                    }).addTo(map);
+
+                    // position utilisateur
+
+                    L.marker([lat, lon])
+                        .addTo(map)
+                        .bindPopup("Vous êtes ici")
+                        .openPopup();
+
+                    // cinéma
+
+                    L.marker([cinemaLat, cinemaLon])
+                    
+                    .addTo(map)
+                    
+                    bindPopup("Cinéma UGC Lille");
+                    
+                    // itinéraire
+
+                    L.Routing.control({
+                    
+                    waypoints: [
+                        L.latLng(lat, lon),
+                        L.latLng(cinemaLat, cinemaLon)
+                    ],
+                    routeWhileDragging: false
+                }).addTo(map);
+                    
+                });
+                }else{
+                    alert("La géolocalisation n'est pas supportée");
+                }
+            </script>
+    </body>
+</html>
