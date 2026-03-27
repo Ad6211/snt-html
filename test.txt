@@ -33,3 +33,50 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap'
 }).addTo(map);
 
+// position utilisateur
+
+L.marker([lat, lon])
+
+addTo(map)
+
+bind Popup("Vous êtes ici")
+
+openPopup();
+
+// cinéma
+
+L.marker([cinemaLat, cinemaLon])
+
+.addTo(map)
+
+bind Popup("Cinéma UGC Lille");
+
+// itinéraire
+
+L.Routing.control({
+
+waypoints:[
+
+L.latLng(lat,lon).
+
+L.latLng(cinema Lat, cinemaLon)
+
+1.
+
+route While Dragging:false
+
+)).addTo(map);
+
+});
+
+}else{
+
+alert("La géolocalisation n'est pas supportée");
+
+}
+
+</script>
+
+</body>
+
+</html>
