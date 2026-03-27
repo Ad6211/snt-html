@@ -1,0 +1,35 @@
+"Content-Type":"application/json"
+},
+body: JSON.stringify(data)
+})
+.then(res=>res.text());
+//3 Attendre les deux 
+Promise.all([emailPromise, sheetPromise])
+.then(()=>{
+    alert("inscription envoyée + enregistrée !");
+    window.location.href = "confirmation.html";
+})
+.catch((error) => {
+console.error(error);
+alert("Erreur lors de l'envoi");
+window.location.href = "error.html";
+});
+});
+</script>
+
+<script>
+if(navigator.geolocalisation){
+    navigator.geolocalisation.getCurentPosition(function(position){
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude; 
+        
+        //coordonnées exemple cinéma (UGC Lille)
+        let cinemaLat = 50.6369;
+        let cimemaLon = 3.0633;
+
+let map = L.map('map').setView([lat,lon],13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© OpenStreetMap'
+}).addTo(map);
+
