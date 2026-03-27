@@ -3,5 +3,11 @@ body{
 
 }
 #title{
-    co
+    color: darkblue; 
+    text-align: center; 
+
+}
+.container{
+    display: flex; 
+    
 }
