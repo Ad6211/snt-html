@@ -80,3 +80,4 @@ alert("La géolocalisation n'est pas supportée");
 </body>
 
 </html>
+.
