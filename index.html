@@ -35,5 +35,27 @@
         <hr>
         <p style="font-size:9px"><a href="https://docs.google.com/spreadsheets/d/1ALA0C4wENjRJ6niPbQSizgeUugQw8IMmw83XgK12QEA/edit?usp=sharing" target="_blank">Lien vers le tableau Google Sheets (pour les admins)</a></p>
     </div>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init("QS93A9o9xo0_E6UJP");
+        document.getElementById("cinemaForm").addEventListener('submit',function(e){
+            e.presentDefault();
+
+            const form = this;
+            
+            const data= {
+                nom: form.nom.value,
+                prenom: form.prenom.value,
+                classe: form.classe.value,
+                ouinon: form.ouinon.value,
+                payement: form.payement.checked ? "Oui" : "Non"
+            };
+
+            //1 envoi email
+            const emailPromise = emailjs.send('service_ccah65g', 'template_mi6hr5q', data);
+
+            //2 envoi à Google Sheets
+            const sheetPromise = fetch("https://script.google.com/macros/s/AKfycbyd7LXBaQYQ074n-rdfMbesrBw0qP6hXZJemxUFL0uPIZBntFES7xHaICpFhW8KDDJygg/exec", {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
